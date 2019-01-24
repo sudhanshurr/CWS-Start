@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        
+        <title>CWS Start - The Umbraco MVC Starter Website</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Warren Buckley - A Creative Web Specialist in Umbraco">
+        
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/sticky-footer.css" rel="stylesheet">
+
+        <!-- Custom CWS Start Styles -->
+        <link href="/css/cws-start.css" rel="stylesheet">
+        
+        <!-- Favicons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+    </head>
+    <body>
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+            
+            <!-- Fixed navbar -->
+            @Html.Action("RenderNavi", "SiteChromeSurface")
+
+            <!-- Begin page content -->
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted">
+                    CWS Start is an example website starter kit for <a href="http://umbraco.com" target="_blank">the Open Source ASP.NET CMS platform Umbraco</a>. <br/>
+                    Built by <a href="http://creativewebspecialist.co.uk" target="_blank">Warren Buckley</a> and 
+                    powered by <a href="http://getbootstrap.com" target="_blank">Bootstrap 3RC1 Framework</a>.
+                </p>
+            </div>
+        </div>
+        
+        <!-- JS Files -->
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>       
+        <script src="/scripts/bootstrap.min.js"></script>
+        
+        <!-- .NET MVC (Custom version of jQuery Validate) -->
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.validate.unobtrusive.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.min.js"></script>
+        
+        <script type="text/javascript">
+            $.validator.defaults.highlight = function (element, errorClass, validClass) {
+                $(element).closest(".form-group").addClass("has-error");
+            };
+            
+            $.validator.defaults.unhighlight = function (element, errorClass, validClass) {
+                $(element).closest(".form-group").removeClass("has-error");
+            };
+            
+        </script>
+
+        
+        @RenderSection("Scripts", false)
+    </body>
+</html>

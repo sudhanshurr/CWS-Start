@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+
+    //Set to XML
+    Response.ContentType = "text/xml";
+
+    //Homepage node
+    var homepage = Umbraco.TypedContentAtRoot().SingleOrDefault();
+   
+    //Get child pages of homepage
+    var naviPages = homepage.Children.Where(x => x.IsVisible());
+    
+}<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @ListChildNodes(naviPages)
+</urlset>
+
+@helper ListChildNodes(IEnumerable<IPublishedContent> naviItems)
+{
+    //For each page in the collection...
+    foreach (var item in naviItems)
+    {
+       <url>
+            <loc>@item.UrlWithDomain()</loc>
+            <lastmod>@item.UpdateDate.ToString("yyyy-MM-dd")</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+        @* If the current node in the loop has children *@
+        if (item.Children.Where(x => x.IsVisible()).Any())
+        {
+            @* Re-run the helper with the children of the current node *@
+            @ListChildNodes(item.Children.Where(x => x.IsVisible()))
+        }
+    }
+}

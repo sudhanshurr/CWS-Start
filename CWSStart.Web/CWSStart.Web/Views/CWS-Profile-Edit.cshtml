@@ -1,0 +1,8 @@
+﻿@using CWSStart.Web.CWSExtensions
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "CWS-Master.cshtml";
+}
+
+<h2>@DictionaryHelper.GetDictItem("EditProfile","Edit Profile")</h2>
+@Html.Action("RenderEditProfile", "ProfileSurface")

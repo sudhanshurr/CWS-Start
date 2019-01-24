@@ -1,0 +1,46 @@
+﻿@using CWSStart.Web.CWSExtensions
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "CWS-Master.cshtml";
+
+    //Get the query from the form that has been posted
+    var query = Request.Form["q"];
+}
+
+@if (string.IsNullOrEmpty(query))
+{
+    <h2>@DictionaryHelper.GetDictItem("SearchResults","Search Results")</h2>
+    <h4>@DictionaryHelper.GetDictItem("EnterSearchQuery","Please enter a search query")</h4>
+}
+else
+{
+    //Do a simple search with the query
+    var results = Umbraco.TypedSearch(query, true, null);
+    
+    <h2>@DictionaryHelper.GetDictItem("SearchResults","Search Results")</h2>
+    <h4>@string.Format(DictionaryHelper.GetDictItem("YouSearchedFor","You searched for <em>{0}</em>"),query)</h4>
+    <h5>@string.Format(@DictionaryHelper.GetDictItem("DisplaingResultCount","Displaying {0} results"),@results.Count())</h5>
+    
+    <hr/>
+    
+    foreach (var result in results)
+    {
+        <h4><a href="@result.Url">@result.Name</a></h4>
+        <h5><em>@result.UrlWithDomain()</em></h5>
+
+        if (result.HasProperty("bodyText") && result.HasValue("bodyText"))
+        {
+            var bodyText    = result.GetProperty("bodyText").Value.ToString();
+            bodyText        = library.StripHtml(bodyText);
+            bodyText        = library.TruncateString(bodyText, 100, "...");
+            
+            <p>
+                @bodyText
+            </p>
+        }
+    
+        <hr/>
+    }
+}
+
+

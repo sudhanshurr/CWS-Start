@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "CWS-Two-Column.cshtml";
+}
+
+@section mainColumn {
+	@Html.Raw(Model.Content.GetProperty("bodyText").Value)
+	@Html.Action("RenderContactForm","ContactFormSurface")	
+}
+
+@section subColumn {
+    @Html.Raw(Model.Content.GetProperty("subText").Value)
+}
